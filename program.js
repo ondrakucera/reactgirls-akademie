@@ -5,13 +5,15 @@
 // --------------------------------------------------
 
 // // Načtení čísla od uživatele
-// let cislo = Number(prompt("Zadej číslo:"));
-// if (cislo > 0) {
-// 	console.log(`Číslo ${cislo} je kladné.`);
-// } else if (cislo === 0) {
-// 	console.log(`Číslo je nula.`);
+// let hodina = Number(prompt("Zadej, kolik je hodin:"));
+// if (hodina < 9) {
+// 	console.log("Je ráno.");
+// } else if (hodina < 12) {
+// 	console.log("Je dopoledne");
+// } else if (hodina === 12) {
+// 	console.log("Je poledne.");
 // } else {
-// 	console.log(`Číslo ${cislo} je záporné.`);
+// 	console.log("Je odpoledne.");
 // }
 
 // --------------------------------------------------
@@ -43,9 +45,10 @@
 // 	return vysledek;
 // }
 
-// let cislo1 = aritmetickyPrumer(2, 5, 10);
+// let cislo1 = aritmetickyPrumer(2, 4, 7);
+// let cislo2 = aritmetickyPrumer(2, 3, -305);
 // console.log(cislo1);
-
+// console.log(cislo2);
 
 // --------------------------------------------------
 
@@ -60,10 +63,15 @@
 
 // --------------------------------------------------
 
-// Funkce pro hod zobecněnou kostkou: na kostce padá náhodně libovolné celé číslo mezi minimum
-// (včetně) a maximum (včetně). Pro obvyklou kostkou by se tedy použilo volání hodKostkou(1, 6).
-function hodKostkou(minimum, maximum) {
+// Funkce pro vygenerování náhodného celého čísla mezi hodnotami minimum (včetně) a maximum (včetně).
+function nahodneCislo(minimum, maximum) {
 	let vysledek = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+	return vysledek;
+}
+
+// Funkce pro hod hrací kostkou o libovolném počtu stěn. Pro obvyklou kostku by se použilo volání hodKostkou(6).
+function hodKostkou(pocetSten) {
+	let vysledek = nahodneCislo(1, pocetSten);
 	return vysledek;
 }
 
@@ -72,7 +80,7 @@ function hodKostkou(minimum, maximum) {
 // // Házení kostkou tak dlouho, než padne šestka
 // let kostka;
 // do {
-//     kostka = hodKostkou(1, 6);
+//     kostka = hodKostkou(6);
 //     console.log(`Na kostce padlo: ${kostka}.`);
 // } while (kostka !== 6);
 
@@ -89,7 +97,7 @@ function nactiCislo() {
 
 let minimum = 1;
 let maximum = 5;
-let tajneCislo = hodKostkou(minimum, maximum);
+let tajneCislo = nahodneCislo(minimum, maximum);
 console.log(`Myslím si číslo mezi ${minimum} a ${maximum}. Dokážeš je uhodnout?`)
 let hadaneCislo;
 do {
@@ -99,6 +107,6 @@ do {
 	} else if (hadaneCislo > tajneCislo) {
 		console.log(`Kdepak, myslím si číslo menší než ${hadaneCislo}.`);
 	} else {
-		console.log(`Výborně, uhodla jsi! Skutečně jsem si myslel číslo ${tajneCislo}.`);
+		console.log(`Výborně, uhodl(a) jsi! Skutečně jsem si myslel číslo ${tajneCislo}.`);
 	}
 } while (hadaneCislo !== tajneCislo);
