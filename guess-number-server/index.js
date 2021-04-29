@@ -1,6 +1,9 @@
 const express = require('express');
+const cors = require('cors');
+
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const port = 8080;
 
@@ -40,6 +43,11 @@ app.post('/games/:id/guess', (request, response, next) => {
 	} else {
 		next();
 	}
+});
+
+app.use(function (request, response, next) {
+	response.header("Access-Control-Allow-Origin", "*");
+	next();
 });
 
 // middleware with an arity of 4 are considered
