@@ -45,11 +45,6 @@ app.post('/games/:id/guess', (request, response, next) => {
 	}
 });
 
-app.use(function (request, response, next) {
-	response.header("Access-Control-Allow-Origin", "*");
-	next();
-});
-
 // middleware with an arity of 4 are considered
 // error handling middleware. When you next(err)
 // it will be passed through the defined middleware
