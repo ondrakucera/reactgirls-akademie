@@ -17,9 +17,9 @@ app.get("/students", (request, response) => {
 
 // Create a new student
 app.post("/students", (request, response) => {
-	/** @type {{firstName: string, lastName: string}} */
+	/** @type {{firstName: string, lastName: string, year: string}} */
 	const studentDto = request.body;
-	const student = studentDao.save(new Student(null, studentDto.firstName, studentDto.lastName));
+	const student = studentDao.save(new Student(null, studentDto.firstName, studentDto.lastName, studentDto.year));
 	response.send(200, student.id);
 });
 
@@ -35,10 +35,10 @@ app.get("/students/:id", (request, response, next) => {
 
 // Update a student
 app.put("/students/:id", (request, response, next) => {
-	/** @type {{firstName: string, lastName: string}} */
+	/** @type {{firstName: string, lastName: string, year: string}} */
 	const studentDto = request.body;
 	try {
-		studentDao.save(new Student(Number(request.params.id), studentDto.firstName, studentDto.lastName));
+		studentDao.save(new Student(Number(request.params.id), studentDto.firstName, studentDto.lastName, studentDto.year));
 		response.status(204).send();
 	} catch (e) {
 		next();
