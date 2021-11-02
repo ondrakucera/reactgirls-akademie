@@ -80,8 +80,8 @@ function hodKostkou(pocetSten) {
 // // Házení kostkou tak dlouho, než padne šestka
 // let kostka;
 // do {
-//     kostka = hodKostkou(6);
-//     console.log(`Na kostce padlo: ${kostka}.`);
+// 	kostka = hodKostkou(6);
+// 	console.log(`Na kostce padlo: ${kostka}.`);
 // } while (kostka !== 6);
 
 // --------------------------------------------------
@@ -98,7 +98,7 @@ function nactiCislo() {
 let minimum = 1;
 let maximum = 5;
 let tajneCislo = nahodneCislo(minimum, maximum);
-console.log(`Myslím si číslo mezi ${minimum} a ${maximum}. Dokážeš je uhodnout?`)
+console.log(`Myslím si číslo mezi ${minimum} a ${maximum}. Dokážeš je uhodnout?`);
 let hadaneCislo;
 do {
 	hadaneCislo = nactiCislo();
