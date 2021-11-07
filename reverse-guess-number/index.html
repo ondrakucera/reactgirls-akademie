@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Guess my number</title>
+	<link rel="stylesheet" href="style.css" />
+	<script src="index.js"></script>
+</head>
+
+<body>
+	<h1>Guess my number</h1>
+
+	<ul>
+		<li>Think of a number between <span class="lowerBound"></span> and <span class="upperBound"></span>
+			(inclusive).</li>
+		<li>I will then try to find it by using as few guesses as possible.</li>
+	</ul>
+
+	<h2>Think of a number and let's play!</h2>
+
+	<section class="guessButtonSection"><button class="guessButton">Guess!</button></section>
+	<section class="guessedNumberSection"><span class="guessedNumber"></span></section>
+	<section class="controlSection">
+		<button class="lowerButton" title="My number is lower.">&lt;</button>
+		<button class="bingoButton">Bingo!</button>
+		<button class="higherButton" title="My number is higher.">&gt;</button>
+	</section>
+</body>
+
+</html>
