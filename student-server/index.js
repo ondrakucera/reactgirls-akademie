@@ -10,6 +10,13 @@ app.use(cors());
 
 const port = 8080;
 
+studentDao.save(new Student(null, "Harry", "Potter", "M", "GRYFFINDOR", "2"));
+studentDao.save(new Student(null, "Hermione", "Granger", "F", "GRYFFINDOR", "2"));
+studentDao.save(new Student(null, "Ron", "Weasley", "M", "GRYFFINDOR", "2"));
+studentDao.save(new Student(null, "Ginny", "Weasley", "F", "GRYFFINDOR", "1"));
+studentDao.save(new Student(null, "Luna", "Lovegood", "F", "RAVENCLAW", "1"));
+studentDao.save(new Student(null, "Draco", "Malfoy", "M", "SLYTHERIN", "2"));
+
 // Get all students
 app.get("/students", (request, response) => {
 	response.send(studentDao.findAll());
