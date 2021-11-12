@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 
+const CodebookItem = require("./codebook");
 const Student = require("./student");
 const studentDao = require("./student-dao");
 
@@ -10,12 +11,8 @@ app.use(cors());
 
 const port = 8080;
 
-studentDao.save(new Student(null, "Harry", "Potter", "M", "GRYFFINDOR", "2"));
-studentDao.save(new Student(null, "Hermione", "Granger", "F", "GRYFFINDOR", "2"));
-studentDao.save(new Student(null, "Ron", "Weasley", "M", "GRYFFINDOR", "2"));
-studentDao.save(new Student(null, "Ginny", "Weasley", "F", "GRYFFINDOR", "1"));
-studentDao.save(new Student(null, "Luna", "Lovegood", "F", "RAVENCLAW", "1"));
-studentDao.save(new Student(null, "Draco", "Malfoy", "M", "SLYTHERIN", "2"));
+const codebooks = createCodebooks();
+persistSampleStudents();
 
 // Get all students
 app.get("/students", (request, response) => {
@@ -73,6 +70,12 @@ app.delete("/students/:id", (request, response, next) => {
 	}
 });
 
+// Get a codebook
+app.get("/codebooks/:codebookCode", (request, response) => {
+	const codebook = codebooks[request.params.codebookCode] ?? [];
+	response.send(codebook);
+});
+
 // middleware with an arity of 4 are considered
 // error handling middleware. When you next(err)
 // it will be passed through the defined middleware
@@ -96,3 +99,36 @@ app.use((request, response) => {
 app.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`);
 });
+
+function persistSampleStudents() {
+	studentDao.save(new Student(null, "Harry", "Potter", "M", "GRYFFINDOR", "2"));
+	studentDao.save(new Student(null, "Hermione", "Granger", "F", "GRYFFINDOR", "2"));
+	studentDao.save(new Student(null, "Ron", "Weasley", "M", "GRYFFINDOR", "2"));
+	studentDao.save(new Student(null, "Ginny", "Weasley", "F", "GRYFFINDOR", "1"));
+	studentDao.save(new Student(null, "Luna", "Lovegood", "F", "RAVENCLAW", "1"));
+	studentDao.save(new Student(null, "Draco", "Malfoy", "M", "SLYTHERIN", "2"));
+}
+
+function createCodebooks() {
+	return {
+		GENDER: [
+			new CodebookItem("M", { cs: "Muž", en: "Male" }, 1),
+			new CodebookItem("F", { cs: "Žena", en: "Femail" }, 2),
+		],
+		HOUSE: [
+			new CodebookItem("GRYFFINDOR", { cs: "Nebelvír", en: "Gryffindor" }, 1),
+			new CodebookItem("HUFFLEPUFF", { cs: "Mrzimor", en: "Hufflepuff" }, 2),
+			new CodebookItem("RAVENCLAW", { cs: "Havraspár", en: "Ravenclaw" }, 3),
+			new CodebookItem("SLYTHERIN", { cs: "Zmijozel", en: "Slytherin" }, 4),
+		],
+		YEAR: [
+			new CodebookItem("1", { cs: "První", en: "First" }, 1),
+			new CodebookItem("2", { cs: "Druhý", en: "Second" }, 2),
+			new CodebookItem("3", { cs: "Třetí", en: "Third" }, 2),
+			new CodebookItem("4", { cs: "Čtvrtý", en: "Fourth" }, 2),
+			new CodebookItem("5", { cs: "Pátý", en: "Fifth" }, 2),
+			new CodebookItem("6", { cs: "Šestý", en: "Sixth" }, 2),
+			new CodebookItem("7", { cs: "Sedmý", en: "Seventh" }, 2),
+		],
+	};
+}
