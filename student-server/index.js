@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const port = 8080;
+const port = process.env.PORT ?? 8080;
 
 const codebooks = createCodebooks();
 persistSampleStudents();
