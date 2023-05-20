@@ -113,7 +113,7 @@ function createCodebooks() {
 	return {
 		GENDER: [
 			new CodebookItem("M", { cs: "Muž", en: "Male" }, 1),
-			new CodebookItem("F", { cs: "Žena", en: "Femail" }, 2),
+			new CodebookItem("F", { cs: "Žena", en: "Female" }, 2),
 		],
 		HOUSE: [
 			new CodebookItem("GRYFFINDOR", { cs: "Nebelvír", en: "Gryffindor" }, 1),
