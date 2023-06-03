@@ -1,7 +1,20 @@
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-export const StudentList = ({ students, context }) => {
-	return (
+export const StudentList = ({ context }) => {
+	const [students, setStudents] = useState([]);
+
+	const fetchStudents = async () => {
+		const response = await fetch("http://localhost:8080/students");
+		const students = await response.json();
+		setStudents(students);
+	};
+
+	useEffect(() => {
+		fetchStudents();
+	}, []);
+
+	return students.length > 0 ? (
 		<table>
 			<tbody>
 				{students.map((student) => (
@@ -16,10 +29,9 @@ export const StudentList = ({ students, context }) => {
 				))}
 			</tbody>
 		</table>
-	);
+	) : null;
 };
 
 StudentList.propTypes = {
-	students: PropTypes.arrayOf(PropTypes.object).isRequired,
 	context: PropTypes.object.isRequired,
 };

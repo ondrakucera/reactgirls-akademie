@@ -5,7 +5,6 @@ import { StudentList } from "./StudentList";
 const LANGUAGE = "en";
 
 function App() {
-	const [students, setStudents] = useState([]);
 	const [gender, setGender] = useState([]);
 	const [house, setHouse] = useState([]);
 	const [year, setYear] = useState([]);
@@ -28,19 +27,12 @@ function App() {
 			});
 	};
 
-	const fetchStudents = async () => {
-		const response = await fetch("http://localhost:8080/students");
-		const students = await response.json();
-		setStudents(students);
-	};
-
 	useEffect(() => {
 		fetchCodeBooks();
-		fetchStudents();
 	}, []);
 
-	return students.length > 0 && gender.length > 0 && house.length > 0 && year.length > 0 ? (
-		<StudentList students={students} context={{ language: LANGUAGE, gender, house, year }} />
+	return gender.length > 0 && house.length > 0 && year.length > 0 ? (
+		<StudentList context={{ language: LANGUAGE, gender, house, year }} />
 	) : null;
 }
 
