@@ -1,18 +1,9 @@
 import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import { LanguageContext } from "./LanguageContext";
 import { CodeBooksContext } from "./CodeBooksContext";
-
-const getCodeBookName = (codeBooks, codeBookCode, codeBookItemCode, language) => {
-	let result = codeBookItemCode;
-	const codeBook = codeBooks[codeBookCode];
-	if (codeBook) {
-		const codeBookItem = codeBook.find((item) => item.code === codeBookItemCode);
-		if (codeBookItem && codeBookItem.names[language]) {
-			result = codeBookItem.names[language];
-		}
-	}
-	return result;
-};
+import { getCodeBookName } from "./code-book";
 
 export const StudentList = () => {
 	const language = useContext(LanguageContext);
@@ -35,7 +26,9 @@ export const StudentList = () => {
 				{students.map((student) => (
 					<tr key={student.id}>
 						<td>
-							{student.firstName} {student.lastName}
+							<Link to={`/students/${student.id}`}>
+								{student.firstName} {student.lastName}
+							</Link>
 						</td>
 						<td>{getCodeBookName(codeBooks, "gender", student.gender, language)}</td>
 						<td>{getCodeBookName(codeBooks, "house", student.house, language)}</td>

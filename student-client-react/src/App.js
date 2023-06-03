@@ -1,10 +1,23 @@
 import { useEffect, useState } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import { StudentList } from "./StudentList";
 import { LanguageContext } from "./LanguageContext";
 import { CodeBooksContext } from "./CodeBooksContext";
+import { StudentDetail } from "./StudentDetail";
 
 const LANGUAGE = "en";
+
+const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <StudentList />,
+	},
+	{
+		path: "/students/:id",
+		element: <StudentDetail />,
+	},
+]);
 
 function App() {
 	const [gender, setGender] = useState([]);
@@ -35,8 +48,8 @@ function App() {
 
 	return gender.length > 0 && house.length > 0 && year.length > 0 ? (
 		<LanguageContext.Provider value={LANGUAGE}>
-			<CodeBooksContext.Provider value={{gender, house, year}}>
-				<StudentList />
+			<CodeBooksContext.Provider value={{ gender, house, year }}>
+				<RouterProvider router={router} />
 			</CodeBooksContext.Provider>
 		</LanguageContext.Provider>
 	) : null;
