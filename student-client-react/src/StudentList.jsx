@@ -1,7 +1,22 @@
-import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import { useContext, useEffect, useState } from "react";
+import { LanguageContext } from "./LanguageContext";
+import { CodeBooksContext } from "./CodeBooksContext";
 
-export const StudentList = ({ context }) => {
+const getCodeBookName = (codeBooks, codeBookCode, codeBookItemCode, language) => {
+	let result = codeBookItemCode;
+	const codeBook = codeBooks[codeBookCode];
+	if (codeBook) {
+		const codeBookItem = codeBook.find((item) => item.code === codeBookItemCode);
+		if (codeBookItem && codeBookItem.names[language]) {
+			result = codeBookItem.names[language];
+		}
+	}
+	return result;
+};
+
+export const StudentList = () => {
+	const language = useContext(LanguageContext);
+	const codeBooks = useContext(CodeBooksContext);
 	const [students, setStudents] = useState([]);
 
 	const fetchStudents = async () => {
@@ -22,16 +37,12 @@ export const StudentList = ({ context }) => {
 						<td>
 							{student.firstName} {student.lastName}
 						</td>
-						<td>{context.gender.find((item) => item.code === student.gender).names[context.language]}</td>
-						<td>{context.house.find((item) => item.code === student.house).names[context.language]}</td>
-						<td>{context.year.find((item) => item.code === student.year).names[context.language]}</td>
+						<td>{getCodeBookName(codeBooks, "gender", student.gender, language)}</td>
+						<td>{getCodeBookName(codeBooks, "house", student.house, language)}</td>
+						<td>{getCodeBookName(codeBooks, "year", student.year, language)}</td>
 					</tr>
 				))}
 			</tbody>
 		</table>
 	) : null;
-};
-
-StudentList.propTypes = {
-	context: PropTypes.object.isRequired,
 };

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { StudentList } from "./StudentList";
+import { LanguageContext } from "./LanguageContext";
+import { CodeBooksContext } from "./CodeBooksContext";
 
 const LANGUAGE = "en";
 
@@ -32,7 +34,11 @@ function App() {
 	}, []);
 
 	return gender.length > 0 && house.length > 0 && year.length > 0 ? (
-		<StudentList context={{ language: LANGUAGE, gender, house, year }} />
+		<LanguageContext.Provider value={LANGUAGE}>
+			<CodeBooksContext.Provider value={{gender, house, year}}>
+				<StudentList />
+			</CodeBooksContext.Provider>
+		</LanguageContext.Provider>
 	) : null;
 }
 
