@@ -5,6 +5,7 @@ import { StudentList } from "./StudentList";
 import { LanguageContext } from "./LanguageContext";
 import { CodeBooksContext } from "./CodeBooksContext";
 import { StudentDetail } from "./StudentDetail";
+import { StudentEditForm } from "./StudentEditForm";
 
 const LANGUAGE = "en";
 
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
 	{
 		path: "/students/:id",
 		element: <StudentDetail />,
+	},
+	{
+		path: "/students/:id/edit",
+		element: <StudentEditForm />,
 	},
 ]);
 

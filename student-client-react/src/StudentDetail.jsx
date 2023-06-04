@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { LanguageContext } from "./LanguageContext";
 import { CodeBooksContext } from "./CodeBooksContext";
-import { getCodeBookName } from "./code-book";
+import { getCodeBookItemName } from "./code-book";
 
 export const StudentDetail = () => {
 	const { id } = useParams();
@@ -26,11 +26,16 @@ export const StudentDetail = () => {
 				<li>
 					Name: {student.firstName} {student.lastName}
 				</li>
-				<li>Gender: {getCodeBookName(codeBooks, "gender", student.gender, language)}</li>
-				<li>House: {getCodeBookName(codeBooks, "house", student.house, language)}</li>
-				<li>Year: {getCodeBookName(codeBooks, "year", student.year, language)}</li>
+				<li>Gender: {getCodeBookItemName(codeBooks, "gender", student.gender, language)}</li>
+				<li>House: {getCodeBookItemName(codeBooks, "house", student.house, language)}</li>
+				<li>Year: {getCodeBookItemName(codeBooks, "year", student.year, language)}</li>
 			</ul>
-			<p><Link to="/">Back to student list.</Link></p>
+			<p>
+				<Link to="/">Back to student list.</Link>{" "}
+				<Link to={`/students/${student.id}/edit`}>
+					Edit {student.firstName} {student.lastName}.
+				</Link>
+			</p>
 		</>
 	) : null;
 };

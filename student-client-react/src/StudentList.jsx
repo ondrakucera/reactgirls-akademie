@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { LanguageContext } from "./LanguageContext";
 import { CodeBooksContext } from "./CodeBooksContext";
-import { getCodeBookName } from "./code-book";
+import { getCodeBookItemName } from "./code-book";
 
 export const StudentList = () => {
 	const language = useContext(LanguageContext);
@@ -30,9 +30,12 @@ export const StudentList = () => {
 								{student.firstName} {student.lastName}
 							</Link>
 						</td>
-						<td>{getCodeBookName(codeBooks, "gender", student.gender, language)}</td>
-						<td>{getCodeBookName(codeBooks, "house", student.house, language)}</td>
-						<td>{getCodeBookName(codeBooks, "year", student.year, language)}</td>
+						<td>{getCodeBookItemName(codeBooks, "gender", student.gender, language)}</td>
+						<td>{getCodeBookItemName(codeBooks, "house", student.house, language)}</td>
+						<td>{getCodeBookItemName(codeBooks, "year", student.year, language)}</td>
+						<td>
+							<Link to={`/students/${student.id}/edit`}>Edit</Link>
+						</td>
 					</tr>
 				))}
 			</tbody>
