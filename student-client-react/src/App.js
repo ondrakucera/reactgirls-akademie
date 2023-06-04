@@ -4,6 +4,7 @@ import "./App.css";
 import { StudentList } from "./StudentList";
 import { LanguageContext } from "./LanguageContext";
 import { CodeBooksContext } from "./CodeBooksContext";
+import { StudentCreateForm } from "./StudentCreateForm";
 import { StudentDetail } from "./StudentDetail";
 import { StudentEditForm } from "./StudentEditForm";
 
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
 	{
 		path: "/students/:id/edit",
 		element: <StudentEditForm />,
+	},
+	{
+		path: "/students/create",
+		element: <StudentCreateForm />,
 	},
 ]);
 

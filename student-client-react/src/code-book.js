@@ -10,9 +10,10 @@ export const getCodeBookItemName = (codeBooks, codeBookCode, codeBookItemCode, l
 	return codeBookItemName;
 };
 
-export const getCodeBookOptions = (codeBooks, codeBookCode, language) =>
+export const getCodeBookOptions = (codeBooks, codeBookCode, language, withEmpty = false) =>
 	codeBooks[codeBookCode] ? (
 		<>
+			{withEmpty ? <option key=""></option> : null}
 			{codeBooks[codeBookCode].map((item) => (
 				<option key={item.code} value={item.code}>
 					{item.names[language] ?? item.code}

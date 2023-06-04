@@ -20,25 +20,32 @@ export const StudentList = () => {
 		fetchStudents();
 	}, []);
 
-	return students.length > 0 ? (
-		<table>
-			<tbody>
-				{students.map((student) => (
-					<tr key={student.id}>
-						<td>
-							<Link to={`/students/${student.id}`}>
-								{student.firstName} {student.lastName}
-							</Link>
-						</td>
-						<td>{getCodeBookItemName(codeBooks, "gender", student.gender, language)}</td>
-						<td>{getCodeBookItemName(codeBooks, "house", student.house, language)}</td>
-						<td>{getCodeBookItemName(codeBooks, "year", student.year, language)}</td>
-						<td>
-							<Link to={`/students/${student.id}/edit`}>Edit</Link>
-						</td>
-					</tr>
-				))}
-			</tbody>
-		</table>
-	) : null;
+	return (
+		<>
+			{students.length > 0 ? (
+				<table>
+					<tbody>
+						{students.map((student) => (
+							<tr key={student.id}>
+								<td>
+									<Link to={`/students/${student.id}`}>
+										{student.firstName} {student.lastName}
+									</Link>
+								</td>
+								<td>{getCodeBookItemName(codeBooks, "gender", student.gender, language)}</td>
+								<td>{getCodeBookItemName(codeBooks, "house", student.house, language)}</td>
+								<td>{getCodeBookItemName(codeBooks, "year", student.year, language)}</td>
+								<td>
+									<Link to={`/students/${student.id}/edit`}>Edit</Link>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			) : null}
+			<p>
+				<Link to="/students/create">Create new student.</Link>
+			</p>
+		</>
+	);
 };
