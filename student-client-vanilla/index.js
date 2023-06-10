@@ -1,3 +1,8 @@
+const handleDeleteButton = async (id) => {
+	await deleteStudent(id);
+	location.reload();
+};
+
 const createStudentTableRow = (student, codeBooks) => `
 <tr>
 	<td><a href="detail.html?id=${student.id}">${student.firstName} ${student.lastName}</a></td>
@@ -6,6 +11,11 @@ const createStudentTableRow = (student, codeBooks) => `
 	<td>${getCodeBookItemName(codeBooks, "year", student.year, LANGUAGE)}</td>
 	<td>
 		<a href="edit.html?id=${student.id}">Edit</a>
+	</td>
+	<td>
+		<button type="button" onclick="handleDeleteButton(${student.id})">
+			Delete
+		</button>
 	</td>
 </tr>
 `;

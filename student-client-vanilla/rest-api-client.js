@@ -54,3 +54,7 @@ const createStudent = async (student) => {
 	const id = await response.json();
 	return id;
 };
+
+const deleteStudent = async (id) => {
+	await fetch(`http://localhost:8080/students/${id}`, { method: "DELETE" });
+};
