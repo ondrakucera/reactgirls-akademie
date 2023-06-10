@@ -1,9 +1,3 @@
-const fetchStudents = async () => {
-	const response = await fetch("http://localhost:8080/students");
-	const students = await response.json();
-	return students;
-};
-
 const fetchCodeBooks = async () => {
 	let gender;
 	let house;
@@ -25,4 +19,16 @@ const fetchCodeBooks = async () => {
 		});
 	await Promise.all([genderPromise, housePromise, yearPromise]);
 	return { gender, house, year };
+};
+
+const fetchStudents = async () => {
+	const response = await fetch("http://localhost:8080/students");
+	const students = await response.json();
+	return students;
+};
+
+const fetchStudent = async (id) => {
+	const response = await fetch(`http://localhost:8080/students/${id}`);
+	const student = await response.json();
+	return student;
 };

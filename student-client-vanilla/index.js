@@ -1,6 +1,6 @@
 const createStudentTableRow = (student, codeBooks) => `
 <tr>
-	<td>${student.firstName} ${student.lastName}</td>
+	<td><a href="detail.html?id=${student.id}">${student.firstName} ${student.lastName}</a></td>
 	<td>${getCodeBookItemName(codeBooks, "gender", student.gender, LANGUAGE)}</td>
 	<td>${getCodeBookItemName(codeBooks, "house", student.house, LANGUAGE)}</td>
 	<td>${getCodeBookItemName(codeBooks, "year", student.year, LANGUAGE)}</td>
