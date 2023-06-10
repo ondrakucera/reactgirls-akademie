@@ -15,6 +15,9 @@ const renderStudents = (students, codeBooks) => {
 		<table>
 		${students.map((student) => createStudentTableRow(student, codeBooks)).join("")}
 		</table>
+		<p>
+			<a href="create.html">Create new student.</a>
+		</p>
 	`;
 	document.body.innerHTML = tableString;
 };

@@ -42,3 +42,15 @@ const updateStudent = async (student) => {
 		body: JSON.stringify(student),
 	});
 };
+
+const createStudent = async (student) => {
+	const response = await fetch("http://localhost:8080/students", {
+		method: "POST",
+		headers: {
+			"content-type": "application/json",
+		},
+		body: JSON.stringify(student),
+	});
+	const id = await response.json();
+	return id;
+};
