@@ -4,6 +4,9 @@ const createStudentTableRow = (student, codeBooks) => `
 	<td>${getCodeBookItemName(codeBooks, "gender", student.gender, LANGUAGE)}</td>
 	<td>${getCodeBookItemName(codeBooks, "house", student.house, LANGUAGE)}</td>
 	<td>${getCodeBookItemName(codeBooks, "year", student.year, LANGUAGE)}</td>
+	<td>
+		<a href="edit.html?id=${student.id}">Edit</a>
+	</td>
 </tr>
 `;
 

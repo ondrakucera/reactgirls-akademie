@@ -32,3 +32,13 @@ const fetchStudent = async (id) => {
 	const student = await response.json();
 	return student;
 };
+
+const updateStudent = async (student) => {
+	await fetch(`http://localhost:8080/students/${student.id}`, {
+		method: "PUT",
+		headers: {
+			"content-type": "application/json",
+		},
+		body: JSON.stringify(student),
+	});
+};

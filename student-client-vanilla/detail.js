@@ -10,6 +10,7 @@ const renderStudent = (student, codeBooks) => {
 		</ul>
 		<p>
 			<a href="index.html">Back to student list.</a>
+			<a href="edit.html?id=${student.id}">Edit ${student.firstName} ${student.lastName}.</a>
 		</p>
 	`;
 	document.body.innerHTML = ulString;
