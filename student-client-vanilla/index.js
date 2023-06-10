@@ -1,0 +1,25 @@
+const createStudentTableRow = (student, codeBooks) => `
+<tr>
+	<td>${student.firstName} ${student.lastName}</td>
+	<td>${getCodeBookItemName(codeBooks, "gender", student.gender, LANGUAGE)}</td>
+	<td>${getCodeBookItemName(codeBooks, "house", student.house, LANGUAGE)}</td>
+	<td>${getCodeBookItemName(codeBooks, "year", student.year, LANGUAGE)}</td>
+</tr>
+`;
+
+const renderStudents = (students, codeBooks) => {
+	const tableString = `
+		<table>
+		${students.map((student) => createStudentTableRow(student, codeBooks)).join("")}
+		</table>
+	`;
+	document.body.innerHTML = tableString;
+};
+
+const onWindowLoad = async () => {
+	const codeBooks = await fetchCodeBooks();
+	const students = await fetchStudents();
+	renderStudents(students, codeBooks);
+};
+
+window.addEventListener("load", onWindowLoad);
