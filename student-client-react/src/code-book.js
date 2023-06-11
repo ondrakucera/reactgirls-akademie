@@ -26,10 +26,18 @@ export const getCodeBookRadioButtons = (codeBooks, codeBookCode, language, check
 	codeBooks[codeBookCode] ? (
 		<>
 			{codeBooks[codeBookCode].map((item) => (
-				<label key={item.code}>
-					<input type="radio" value={item.code} checked={item.code === checkedValue} onChange={radioOnChange} />{" "}
-					{item.names[language] ?? item.code}
-				</label>
+				<span key={item.code}>
+					<label className="form-check-label">
+						<input
+							type="radio"
+							value={item.code}
+							checked={item.code === checkedValue}
+							onChange={radioOnChange}
+							className="form-check-input"
+						/>{" "}
+						{item.names[language] ?? item.code}
+					</label>{" "}
+				</span>
 			))}
 		</>
 	) : null;

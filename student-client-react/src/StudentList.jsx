@@ -33,8 +33,18 @@ export const StudentList = () => {
 
 	return (
 		<>
+			<h1>List of students</h1>
 			{students.length > 0 ? (
-				<table>
+				<table className="table table-light table-striped table-bordered">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Gender</th>
+							<th>House</th>
+							<th>Year</th>
+							<th></th>
+						</tr>
+					</thead>
 					<tbody>
 						{students.map((student) => (
 							<tr key={student.id}>
@@ -47,10 +57,8 @@ export const StudentList = () => {
 								<td>{getCodeBookItemName(codeBooks, "house", student.house, language)}</td>
 								<td>{getCodeBookItemName(codeBooks, "year", student.year, language)}</td>
 								<td>
-									<Link to={`/students/${student.id}/edit`}>Edit</Link>
-								</td>
-								<td>
-									<button type="button" onClick={() => handleDeleteButton(student.id)}>
+									<Link to={`/students/${student.id}/edit`}>Edit</Link>{" "}
+									<button type="button" onClick={() => handleDeleteButton(student.id)} className="btn btn-danger">
 										Delete
 									</button>
 								</td>
@@ -60,7 +68,7 @@ export const StudentList = () => {
 				</table>
 			) : null}
 			<p>
-				<Link to="/students/create">Create new student.</Link>
+				<Link to="/students/create">Create new student</Link>
 			</p>
 		</>
 	);

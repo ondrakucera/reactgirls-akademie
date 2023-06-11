@@ -43,29 +43,40 @@ export const StudentCreateForm = () => {
 		navigate(`/students/${id}`);
 	};
 
-	return student ? (
+	return (
 		<>
+			<h1>Create student</h1>
 			<form onSubmit={handleSubmit}>
-				<table>
+				<table className="table table-light table-bordered">
 					<tbody>
 						<tr>
 							<th>
-								<label htmlFor="first-name">First name</label>
+								<label htmlFor="first-name" className="form-label">
+									First name
+								</label>
 							</th>
 							<td>
 								<input
 									id="first-name"
 									value={student.firstName}
 									onChange={(event) => setFirstName(event.target.value)}
+									className="form-control"
 								/>
 							</td>
 						</tr>
 						<tr>
 							<th>
-								<label htmlFor="last-name">Last name</label>
+								<label htmlFor="last-name" className="form-label">
+									Last name
+								</label>
 							</th>
 							<td>
-								<input id="last-name" value={student.lastName} onChange={(event) => setLastName(event.target.value)} />
+								<input
+									id="last-name"
+									value={student.lastName}
+									onChange={(event) => setLastName(event.target.value)}
+									className="form-control"
+								/>
 							</td>
 						</tr>
 						<tr>
@@ -78,35 +89,49 @@ export const StudentCreateForm = () => {
 						</tr>
 						<tr>
 							<th>
-								<label htmlFor="house">House</label>
+								<label htmlFor="house" className="form-label">
+									House
+								</label>
 							</th>
 							<td>
-								<select id="house" value={student.house} onChange={(event) => setHouse(event.target.value)}>
+								<select
+									id="house"
+									value={student.house}
+									onChange={(event) => setHouse(event.target.value)}
+									className="form-select"
+								>
 									{getCodeBookOptions(codeBooks, "house", language, true)}
 								</select>
 							</td>
 						</tr>
 						<tr>
 							<th>
-								<label htmlFor="year">Year</label>
+								<label htmlFor="year" className="form-label">
+									Year
+								</label>
 							</th>
 							<td>
-								<select id="year" value={student.year} onChange={(event) => setYear(event.target.value)}>
+								<select
+									id="year"
+									value={student.year}
+									onChange={(event) => setYear(event.target.value)}
+									className="form-select"
+								>
 									{getCodeBookOptions(codeBooks, "year", language, true)}
 								</select>
 							</td>
 						</tr>
-						<tr colSpan="2">
-							<td>
-								<button>Save</button>
+						<tr>
+							<td colSpan="2">
+								<button className="btn btn-primary">Save</button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</form>
 			<p>
-				<Link to="/">Back to student list.</Link>
+				<Link to="/">Back to student list</Link>
 			</p>
 		</>
-	) : null;
+	);
 };
