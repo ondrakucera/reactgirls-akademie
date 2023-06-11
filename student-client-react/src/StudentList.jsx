@@ -9,13 +9,11 @@ export const StudentList = () => {
 	const language = useContext(LanguageContext);
 	const codeBooks = useContext(CodeBooksContext);
 	const [students, setStudents] = useState([]);
-	const [studentDeleted, setStudentDeleted] = useState(false);
 
 	const fetchStudents = async () => {
 		const response = await fetch("http://localhost:8080/students");
 		const students = await response.json();
 		setStudents(students);
-		setStudentDeleted(false);
 	};
 
 	const deleteStudent = async (id) => {
@@ -24,11 +22,11 @@ export const StudentList = () => {
 
 	useEffect(() => {
 		fetchStudents();
-	}, [studentDeleted]);
+	}, []);
 
 	const handleDeleteButton = async (id) => {
 		await deleteStudent(id);
-		setStudentDeleted(true);
+		await fetchStudents();
 	};
 
 	return (
