@@ -1,4 +1,8 @@
-const handleDeleteButton = async (id) => {
+import { LANGUAGE } from "./common.js";
+import { deleteStudent, fetchCodeBooks, fetchStudents } from "./rest-api-client.js";
+import { getCodeBookItemName } from "./code-book.js";
+
+window.handleDeleteButton = async (id) => {
 	await deleteStudent(id);
 	location.reload();
 };
@@ -21,21 +25,13 @@ const createStudentTableRow = (student, codeBooks) => `
 `;
 
 const renderStudents = (students, codeBooks) => {
-	const tableString = `
-		<table>
-		${students.map((student) => createStudentTableRow(student, codeBooks)).join("")}
-		</table>
-		<p>
-			<a href="create.html">Create new student.</a>
-		</p>
-	`;
-	document.body.innerHTML = tableString;
+	document.querySelector("#student-table").innerHTML = students
+		.map((student) => createStudentTableRow(student, codeBooks))
+		.join("");
 };
 
-const onWindowLoad = async () => {
+window.addEventListener("load", async () => {
 	const codeBooks = await fetchCodeBooks();
 	const students = await fetchStudents();
 	renderStudents(students, codeBooks);
-};
-
-window.addEventListener("load", onWindowLoad);
+});

@@ -1,4 +1,4 @@
-const fetchCodeBooks = async () => {
+export const fetchCodeBooks = async () => {
 	let gender;
 	let house;
 	let year;
@@ -21,19 +21,19 @@ const fetchCodeBooks = async () => {
 	return { gender, house, year };
 };
 
-const fetchStudents = async () => {
+export const fetchStudents = async () => {
 	const response = await fetch("http://localhost:8080/students");
 	const students = await response.json();
 	return students;
 };
 
-const fetchStudent = async (id) => {
+export const fetchStudent = async (id) => {
 	const response = await fetch(`http://localhost:8080/students/${id}`);
 	const student = await response.json();
 	return student;
 };
 
-const updateStudent = async (student) => {
+export const updateStudent = async (student) => {
 	await fetch(`http://localhost:8080/students/${student.id}`, {
 		method: "PUT",
 		headers: {
@@ -43,7 +43,7 @@ const updateStudent = async (student) => {
 	});
 };
 
-const createStudent = async (student) => {
+export const createStudent = async (student) => {
 	const response = await fetch("http://localhost:8080/students", {
 		method: "POST",
 		headers: {
@@ -55,6 +55,6 @@ const createStudent = async (student) => {
 	return id;
 };
 
-const deleteStudent = async (id) => {
+export const deleteStudent = async (id) => {
 	await fetch(`http://localhost:8080/students/${id}`, { method: "DELETE" });
 };

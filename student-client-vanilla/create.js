@@ -1,3 +1,7 @@
+import { LANGUAGE } from "./common.js";
+import { createStudent, fetchCodeBooks } from "./rest-api-client.js";
+import { getCodeBookOptionsString, getCodeBookRadioButtonsString } from "./code-book.js";
+
 const handleSubmit = async (event) => {
 	event.preventDefault();
 
@@ -66,9 +70,7 @@ const renderCreateFormContent = (codeBooks) => {
 	form.addEventListener("submit", handleSubmit);
 };
 
-const onWindowLoad = async () => {
+window.addEventListener("load", async () => {
 	const codeBooks = await fetchCodeBooks();
 	renderCreateFormContent(codeBooks);
-};
-
-window.addEventListener("load", onWindowLoad);
+});

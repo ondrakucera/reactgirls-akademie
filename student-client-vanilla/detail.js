@@ -1,3 +1,7 @@
+import { LANGUAGE } from "./common.js";
+import { fetchCodeBooks, fetchStudent } from "./rest-api-client.js";
+import { getCodeBookItemName } from "./code-book.js";
+
 const renderStudent = (student, codeBooks) => {
 	const ulString = `
 		<ul>
@@ -16,11 +20,9 @@ const renderStudent = (student, codeBooks) => {
 	document.body.innerHTML = ulString;
 };
 
-const onWindowLoad = async () => {
+window.addEventListener("load", async () => {
 	const id = new URLSearchParams(location.search).get("id");
 	const codeBooks = await fetchCodeBooks();
 	const student = await fetchStudent(id);
 	renderStudent(student, codeBooks);
-};
-
-window.addEventListener("load", onWindowLoad);
+});
