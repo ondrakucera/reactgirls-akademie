@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import { StudentList } from "./StudentList";
 import { LanguageContext } from "./LanguageContext";
-import { CodeBooksContext } from "./CodeBooksContext";
+import { CodebooksContext } from "./CodebooksContext";
 import { StudentCreateForm } from "./StudentCreateForm";
 import { StudentDetail } from "./StudentDetail";
 import { StudentEditForm } from "./StudentEditForm";
@@ -34,7 +34,7 @@ function App() {
 	const [house, setHouse] = useState([]);
 	const [year, setYear] = useState([]);
 
-	const fetchCodeBooks = async () => {
+	const fetchCodebooks = async () => {
 		fetch("http://localhost:8080/codebooks/GENDER")
 			.then((response) => response.json())
 			.then((body) => {
@@ -53,14 +53,14 @@ function App() {
 	};
 
 	useEffect(() => {
-		fetchCodeBooks();
+		fetchCodebooks();
 	}, []);
 
 	return gender.length > 0 && house.length > 0 && year.length > 0 ? (
 		<LanguageContext.Provider value={LANGUAGE}>
-			<CodeBooksContext.Provider value={{ gender, house, year }}>
+			<CodebooksContext.Provider value={{ gender, house, year }}>
 				<RouterProvider router={router} />
-			</CodeBooksContext.Provider>
+			</CodebooksContext.Provider>
 		</LanguageContext.Provider>
 	) : null;
 }

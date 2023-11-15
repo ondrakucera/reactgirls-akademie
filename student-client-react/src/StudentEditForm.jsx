@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { LanguageContext } from "./LanguageContext";
-import { CodeBooksContext } from "./CodeBooksContext";
-import { getCodeBookOptions, getCodeBookRadioButtons } from "./code-book";
+import { CodebooksContext } from "./CodebooksContext";
+import { getCodebookOptions, getCodebookRadioButtons } from "./codebook";
 
 export const StudentEditForm = () => {
 	const { id } = useParams();
 	const language = useContext(LanguageContext);
-	const codeBooks = useContext(CodeBooksContext);
+	const codebooks = useContext(CodebooksContext);
 	const [student, setStudent] = useState(null);
 	const navigate = useNavigate();
 
@@ -93,7 +93,7 @@ export const StudentEditForm = () => {
 							<tr>
 								<th>Gender</th>
 								<td>
-									{getCodeBookRadioButtons(codeBooks, "gender", language, student.gender, (event) =>
+									{getCodebookRadioButtons(codebooks, "gender", language, student.gender, (event) =>
 										setGender(event.target.value)
 									)}
 								</td>
@@ -111,7 +111,7 @@ export const StudentEditForm = () => {
 										onChange={(event) => setHouse(event.target.value)}
 										className="form-select"
 									>
-										{getCodeBookOptions(codeBooks, "house", language)}
+										{getCodebookOptions(codebooks, "house", language)}
 									</select>
 								</td>
 							</tr>
@@ -128,7 +128,7 @@ export const StudentEditForm = () => {
 										onChange={(event) => setYear(event.target.value)}
 										className="form-select"
 									>
-										{getCodeBookOptions(codeBooks, "year", language)}
+										{getCodebookOptions(codebooks, "year", language)}
 									</select>
 								</td>
 							</tr>
