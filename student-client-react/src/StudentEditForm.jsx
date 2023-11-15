@@ -1,15 +1,30 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { LanguageContext } from "./LanguageContext";
-import { CodebooksContext } from "./CodebooksContext";
-import { getCodebookOptions, getCodebookRadioButtons } from "./codebook";
+import {
+	CODEBOOK_NAME_GENDER,
+	CODEBOOK_NAME_HOUSE,
+	CODEBOOK_NAME_YEAR,
+	getCodebookOptions,
+	getCodebookRadioButtons,
+} from "./codebook";
 
 export const StudentEditForm = () => {
 	const { id } = useParams();
 	const language = useContext(LanguageContext);
-	const codebooks = useContext(CodebooksContext);
+	const [codebooks, setCodebooks] = useState({});
 	const [student, setStudent] = useState(null);
 	const navigate = useNavigate();
+
+	const fetchCodebooks = () => {
+		[CODEBOOK_NAME_GENDER, CODEBOOK_NAME_HOUSE, CODEBOOK_NAME_YEAR].forEach((codebook) => {
+			fetch(`http://localhost:8080/codebooks/${codebook}`)
+				.then((response) => response.json())
+				.then((body) => {
+					setCodebooks((codebooks) => ({ ...codebooks, [codebook]: body }));
+				});
+		});
+	};
 
 	const fetchStudent = () => {
 		return fetch(`http://localhost:8080/students/${id}`)
@@ -28,6 +43,7 @@ export const StudentEditForm = () => {
 	};
 
 	useEffect(() => {
+		fetchCodebooks();
 		fetchStudent();
 	}, []);
 
@@ -55,7 +71,7 @@ export const StudentEditForm = () => {
 	return (
 		<>
 			<h1>Edit student</h1>
-			{student ? (
+			{student && codebooks[CODEBOOK_NAME_GENDER] && codebooks[CODEBOOK_NAME_HOUSE] && codebooks[CODEBOOK_NAME_YEAR] ? (
 				<form onSubmit={handleSubmit}>
 					<table className="table table-light table-bordered">
 						<tbody>
@@ -92,7 +108,7 @@ export const StudentEditForm = () => {
 							<tr>
 								<th>Gender</th>
 								<td>
-									{getCodebookRadioButtons(codebooks, "gender", language, student.gender, (event) =>
+									{getCodebookRadioButtons(codebooks, CODEBOOK_NAME_GENDER, language, student.gender, (event) =>
 										setGender(event.target.value)
 									)}
 								</td>
@@ -110,7 +126,7 @@ export const StudentEditForm = () => {
 										onChange={(event) => setHouse(event.target.value)}
 										className="form-select"
 									>
-										{getCodebookOptions(codebooks, "house", language)}
+										{getCodebookOptions(codebooks, CODEBOOK_NAME_HOUSE, language)}
 									</select>
 								</td>
 							</tr>
@@ -127,7 +143,7 @@ export const StudentEditForm = () => {
 										onChange={(event) => setYear(event.target.value)}
 										className="form-select"
 									>
-										{getCodebookOptions(codebooks, "year", language)}
+										{getCodebookOptions(codebooks, CODEBOOK_NAME_YEAR, language)}
 									</select>
 								</td>
 							</tr>

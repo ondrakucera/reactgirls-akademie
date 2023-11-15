@@ -1,3 +1,7 @@
+export const CODEBOOK_NAME_GENDER = "GENDER";
+export const CODEBOOK_NAME_HOUSE = "HOUSE";
+export const CODEBOOK_NAME_YEAR = "YEAR";
+
 export const getCodebookItemName = (codebooks, codebookCode, codebookItemCode, language) => {
 	let codebookItemName = codebookItemCode;
 	const codebook = codebooks[codebookCode];

@@ -2,13 +2,22 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { LanguageContext } from "./LanguageContext";
-import { CodebooksContext } from "./CodebooksContext";
-import { getCodebookItemName } from "./codebook";
+import { CODEBOOK_NAME_GENDER, CODEBOOK_NAME_HOUSE, CODEBOOK_NAME_YEAR, getCodebookItemName } from "./codebook";
 
 export const StudentList = () => {
 	const language = useContext(LanguageContext);
-	const codebooks = useContext(CodebooksContext);
+	const [codebooks, setCodebooks] = useState({});
 	const [students, setStudents] = useState([]);
+
+	const fetchCodebooks = () => {
+		[CODEBOOK_NAME_GENDER, CODEBOOK_NAME_HOUSE, CODEBOOK_NAME_YEAR].forEach((codebook) => {
+			fetch(`http://localhost:8080/codebooks/${codebook}`)
+				.then((response) => response.json())
+				.then((body) => {
+					setCodebooks((codebooks) => ({ ...codebooks, [codebook]: body }));
+				});
+		});
+	};
 
 	const fetchStudents = () => {
 		return fetch("http://localhost:8080/students")
@@ -21,6 +30,7 @@ export const StudentList = () => {
 	};
 
 	useEffect(() => {
+		fetchCodebooks();
 		fetchStudents();
 	}, []);
 
@@ -50,9 +60,9 @@ export const StudentList = () => {
 										{student.firstName} {student.lastName}
 									</Link>
 								</td>
-								<td>{getCodebookItemName(codebooks, "gender", student.gender, language)}</td>
-								<td>{getCodebookItemName(codebooks, "house", student.house, language)}</td>
-								<td>{getCodebookItemName(codebooks, "year", student.year, language)}</td>
+								<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_GENDER, student.gender, language)}</td>
+								<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_HOUSE, student.house, language)}</td>
+								<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_YEAR, student.year, language)}</td>
 								<td>
 									<Link to={`/students/${student.id}/edit`}>Edit</Link>{" "}
 									<button type="button" onClick={() => handleDeleteButton(student.id)} className="btn btn-danger">

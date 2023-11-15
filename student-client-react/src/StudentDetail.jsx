@@ -1,14 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { LanguageContext } from "./LanguageContext";
-import { CodebooksContext } from "./CodebooksContext";
-import { getCodebookItemName } from "./codebook";
+import { CODEBOOK_NAME_GENDER, CODEBOOK_NAME_HOUSE, CODEBOOK_NAME_YEAR, getCodebookItemName } from "./codebook";
 
 export const StudentDetail = () => {
 	const { id } = useParams();
 	const language = useContext(LanguageContext);
-	const codebooks = useContext(CodebooksContext);
+	const [codebooks, setCodebooks] = useState({});
 	const [student, setStudent] = useState(null);
+
+	const fetchCodebooks = () => {
+		[CODEBOOK_NAME_GENDER, CODEBOOK_NAME_HOUSE, CODEBOOK_NAME_YEAR].forEach((codebook) => {
+			fetch(`http://localhost:8080/codebooks/${codebook}`)
+				.then((response) => response.json())
+				.then((body) => {
+					setCodebooks((codebooks) => ({ ...codebooks, [codebook]: body }));
+				});
+		});
+	};
 
 	const fetchStudent = () => {
 		return fetch(`http://localhost:8080/students/${id}`)
@@ -17,13 +26,14 @@ export const StudentDetail = () => {
 	};
 
 	useEffect(() => {
+		fetchCodebooks();
 		fetchStudent();
 	}, []);
 
 	return (
 		<>
 			<h1>Student detail</h1>
-			{student ? (
+			{student && codebooks[CODEBOOK_NAME_GENDER] && codebooks[CODEBOOK_NAME_HOUSE] && codebooks[CODEBOOK_NAME_YEAR] ? (
 				<table className="table table-light table-bordered">
 					<tbody>
 						<tr>
@@ -34,15 +44,15 @@ export const StudentDetail = () => {
 						</tr>
 						<tr>
 							<th>Gender</th>
-							<td>{getCodebookItemName(codebooks, "gender", student.gender, language)}</td>
+							<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_GENDER, student.gender, language)}</td>
 						</tr>
 						<tr>
 							<th>House</th>
-							<td>{getCodebookItemName(codebooks, "house", student.house, language)}</td>
+							<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_HOUSE, student.house, language)}</td>
 						</tr>
 						<tr>
 							<th>Year</th>
-							<td>{getCodebookItemName(codebooks, "year", student.year, language)}</td>
+							<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_YEAR, student.year, language)}</td>
 						</tr>
 					</tbody>
 				</table>
