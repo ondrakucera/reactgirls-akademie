@@ -10,10 +10,10 @@ export const StudentDetail = () => {
 	const codebooks = useContext(CodebooksContext);
 	const [student, setStudent] = useState(null);
 
-	const fetchStudent = async () => {
-		const response = await fetch(`http://localhost:8080/students/${id}`);
-		const student = await response.json();
-		setStudent(student);
+	const fetchStudent = () => {
+		return fetch(`http://localhost:8080/students/${id}`)
+			.then((response) => response.json())
+			.then((student) => setStudent(student));
 	};
 
 	useEffect(() => {

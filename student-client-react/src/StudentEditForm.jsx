@@ -11,14 +11,14 @@ export const StudentEditForm = () => {
 	const [student, setStudent] = useState(null);
 	const navigate = useNavigate();
 
-	const fetchStudent = async () => {
-		const response = await fetch(`http://localhost:8080/students/${id}`);
-		const student = await response.json();
-		setStudent(student);
+	const fetchStudent = () => {
+		return fetch(`http://localhost:8080/students/${id}`)
+			.then((response) => response.json())
+			.then((student) => setStudent(student));
 	};
 
-	const saveStudent = async () => {
-		await fetch(`http://localhost:8080/students/${id}`, {
+	const saveStudent = () => {
+		return fetch(`http://localhost:8080/students/${id}`, {
 			method: "PUT",
 			headers: {
 				"content-type": "application/json",
@@ -47,10 +47,9 @@ export const StudentEditForm = () => {
 		setStudent({ ...student, year });
 	};
 
-	const handleSubmit = async (event) => {
+	const handleSubmit = (event) => {
 		event.preventDefault();
-		await saveStudent();
-		navigate(`/students/${student.id}`);
+		saveStudent().then(() => navigate(`/students/${student.id}`));
 	};
 
 	return (

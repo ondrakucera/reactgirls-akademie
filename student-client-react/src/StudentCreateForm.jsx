@@ -10,15 +10,14 @@ export const StudentCreateForm = () => {
 	const [student, setStudent] = useState({ firstName: "", lastName: "", gender: "", house: "", year: "" });
 	const navigate = useNavigate();
 
-	const saveStudent = async () => {
-		const response = await fetch("http://localhost:8080/students", {
+	const saveStudent = () => {
+		return fetch("http://localhost:8080/students", {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
 			},
 			body: JSON.stringify(student),
-		});
-		return await response.json();
+		}).then((response) => response.json());
 	};
 
 	const setFirstName = (firstName) => {
@@ -37,10 +36,9 @@ export const StudentCreateForm = () => {
 		setStudent({ ...student, year });
 	};
 
-	const handleSubmit = async (event) => {
+	const handleSubmit = (event) => {
 		event.preventDefault();
-		const id = await saveStudent();
-		navigate(`/students/${id}`);
+		saveStudent().then((id) => navigate(`/students/${id}`));
 	};
 
 	return (

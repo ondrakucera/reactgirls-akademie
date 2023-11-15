@@ -34,7 +34,7 @@ function App() {
 	const [house, setHouse] = useState([]);
 	const [year, setYear] = useState([]);
 
-	const fetchCodebooks = async () => {
+	const fetchCodebooks = () => {
 		fetch("http://localhost:8080/codebooks/GENDER")
 			.then((response) => response.json())
 			.then((body) => {

@@ -10,23 +10,22 @@ export const StudentList = () => {
 	const codebooks = useContext(CodebooksContext);
 	const [students, setStudents] = useState([]);
 
-	const fetchStudents = async () => {
-		const response = await fetch("http://localhost:8080/students");
-		const students = await response.json();
-		setStudents(students);
+	const fetchStudents = () => {
+		return fetch("http://localhost:8080/students")
+			.then((response) => response.json())
+			.then((students) => setStudents(students));
 	};
 
-	const deleteStudent = async (id) => {
-		await fetch(`http://localhost:8080/students/${id}`, { method: "DELETE" });
+	const deleteStudent = (id) => {
+		return fetch(`http://localhost:8080/students/${id}`, { method: "DELETE" });
 	};
 
 	useEffect(() => {
 		fetchStudents();
 	}, []);
 
-	const handleDeleteButton = async (id) => {
-		await deleteStudent(id);
-		await fetchStudents();
+	const handleDeleteButton = (id) => {
+		deleteStudent(id).then(() => fetchStudents());
 	};
 
 	return (
