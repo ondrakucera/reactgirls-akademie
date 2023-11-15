@@ -1,11 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { LanguageContext } from "./LanguageContext";
 import { CODEBOOK_NAME_GENDER, CODEBOOK_NAME_HOUSE, CODEBOOK_NAME_YEAR, getCodebookItemName } from "./codebook";
 
 export const StudentDetail = () => {
 	const { id } = useParams();
-	const language = useContext(LanguageContext);
 	const [codebooks, setCodebooks] = useState({});
 	const [student, setStudent] = useState(null);
 
@@ -44,15 +42,15 @@ export const StudentDetail = () => {
 						</tr>
 						<tr>
 							<th>Gender</th>
-							<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_GENDER, student.gender, language)}</td>
+							<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_GENDER, student.gender)}</td>
 						</tr>
 						<tr>
 							<th>House</th>
-							<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_HOUSE, student.house, language)}</td>
+							<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_HOUSE, student.house)}</td>
 						</tr>
 						<tr>
 							<th>Year</th>
-							<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_YEAR, student.year, language)}</td>
+							<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_YEAR, student.year)}</td>
 						</tr>
 					</tbody>
 				</table>

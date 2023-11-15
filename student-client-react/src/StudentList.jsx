@@ -1,11 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { LanguageContext } from "./LanguageContext";
 import { CODEBOOK_NAME_GENDER, CODEBOOK_NAME_HOUSE, CODEBOOK_NAME_YEAR, getCodebookItemName } from "./codebook";
 
 export const StudentList = () => {
-	const language = useContext(LanguageContext);
 	const [codebooks, setCodebooks] = useState({});
 	const [students, setStudents] = useState([]);
 
@@ -60,9 +58,9 @@ export const StudentList = () => {
 										{student.firstName} {student.lastName}
 									</Link>
 								</td>
-								<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_GENDER, student.gender, language)}</td>
-								<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_HOUSE, student.house, language)}</td>
-								<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_YEAR, student.year, language)}</td>
+								<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_GENDER, student.gender)}</td>
+								<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_HOUSE, student.house)}</td>
+								<td>{getCodebookItemName(codebooks, CODEBOOK_NAME_YEAR, student.year)}</td>
 								<td>
 									<Link to={`/students/${student.id}/edit`}>Edit</Link>{" "}
 									<button type="button" onClick={() => handleDeleteButton(student.id)} className="btn btn-danger">

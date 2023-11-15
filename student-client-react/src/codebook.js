@@ -2,31 +2,33 @@ export const CODEBOOK_NAME_GENDER = "GENDER";
 export const CODEBOOK_NAME_HOUSE = "HOUSE";
 export const CODEBOOK_NAME_YEAR = "YEAR";
 
-export const getCodebookItemName = (codebooks, codebookCode, codebookItemCode, language) => {
+const LANGUAGE = "en";
+
+export const getCodebookItemName = (codebooks, codebookCode, codebookItemCode) => {
 	let codebookItemName = codebookItemCode;
 	const codebook = codebooks[codebookCode];
 	if (codebook) {
 		const codebookItem = codebook.find((item) => item.code === codebookItemCode);
-		if (codebookItem && codebookItem.names[language]) {
-			codebookItemName = codebookItem.names[language];
+		if (codebookItem && codebookItem.names[LANGUAGE]) {
+			codebookItemName = codebookItem.names[LANGUAGE];
 		}
 	}
 	return codebookItemName;
 };
 
-export const getCodebookOptions = (codebooks, codebookCode, language, withEmpty = false) =>
+export const getCodebookOptions = (codebooks, codebookCode, withEmpty = false) =>
 	codebooks[codebookCode] ? (
 		<>
 			{withEmpty ? <option key=""></option> : null}
 			{codebooks[codebookCode].map((item) => (
 				<option key={item.code} value={item.code}>
-					{item.names[language] ?? item.code}
+					{item.names[LANGUAGE] ?? item.code}
 				</option>
 			))}
 		</>
 	) : null;
 
-export const getCodebookRadioButtons = (codebooks, codebookCode, language, checkedValue, radioOnChange) =>
+export const getCodebookRadioButtons = (codebooks, codebookCode, checkedValue, radioOnChange) =>
 	codebooks[codebookCode] ? (
 		<>
 			{codebooks[codebookCode].map((item) => (
@@ -39,7 +41,7 @@ export const getCodebookRadioButtons = (codebooks, codebookCode, language, check
 							onChange={radioOnChange}
 							className="form-check-input"
 						/>{" "}
-						{item.names[language] ?? item.code}
+						{item.names[LANGUAGE] ?? item.code}
 					</label>{" "}
 				</span>
 			))}
